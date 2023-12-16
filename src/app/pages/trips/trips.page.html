@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>My trips</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let trip of trips" [routerLink]="trip.id">
+      <ion-card class="w-100">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="11">
+              <ion-card-header>
+                <ion-card-title>{{ trip.title }}</ion-card-title>
+                <ion-card-subtitle>
+                  {{ trip.startDestination.date | date: 'dd/MM/yyyy' }} ({{trip.startDestination.name}}) 
+                  - 
+                  {{ trip.finalDestination.date | date: 'dd/MM/yyyy' }} ({{trip.finalDestination.name}})
+                </ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-label>Rs. {{ trip.budget }} per person</ion-label>
+              </ion-card-content>
+            </ion-col>
+            <ion-col size="1" class="ion-align-self-center">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</ion-content>
