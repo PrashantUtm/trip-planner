@@ -14,7 +14,7 @@ export class TripsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.trips = this.tripsService.getTrips();
+    this.tripsService.getTrips().subscribe(trips => this.trips = trips);
   }
 
 }

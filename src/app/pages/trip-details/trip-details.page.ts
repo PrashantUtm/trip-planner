@@ -23,7 +23,7 @@ export class TripDetailsPage implements OnInit {
   ngOnInit() {
     let tripId = this.route.snapshot.paramMap.get('id');
     if (tripId) {
-      this.trip = this.tripsService.getTrip(tripId) ?? this.trip;
+      this.tripsService.getTrip(tripId).subscribe(trip => this.trip = trip ?? this.trip);
     }
   }
 
