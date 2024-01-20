@@ -1,0 +1,14 @@
+<ion-card>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4" class="ion-text-center">
+          <div>{{ destination.date | date: 'ccc' }}</div>
+          <div class="destination-date">{{ destination.date | date: 'dd' }}</div>
+          <div>{{ destination.date | date: 'MMM' }}</div>
+        </ion-col>
+        <ion-col class="destination-name ion-align-self-center">{{ destination.name }}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

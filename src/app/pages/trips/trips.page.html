@@ -1,10 +1,22 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>My trips</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="presentPopover($event)">
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-popover #popover [isOpen]="isPopoverOpen" (didDismiss)="isPopoverOpen = false">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <ion-button fill="clear" (click)="logout()">Log out</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
   <ion-list>
     <ion-item *ngFor="let trip of trips" [routerLink]="trip.id">
       <ion-card class="w-100">
