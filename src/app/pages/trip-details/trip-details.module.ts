@@ -8,6 +8,7 @@ import { TripDetailsPageRoutingModule } from './trip-details-routing.module';
 
 import { TripDetailsPage } from './trip-details.page';
 import { DestinationComponent } from 'src/app/components/destination/destination.component';
+import { ChecklistComponent } from 'src/app/components/checklist/checklist.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { DestinationComponent } from 'src/app/components/destination/destination
     IonicModule,
     TripDetailsPageRoutingModule
   ],
-  declarations: [TripDetailsPage, DestinationComponent]
+  declarations: [TripDetailsPage, DestinationComponent, ChecklistComponent]
 })
 export class TripDetailsPageModule {}

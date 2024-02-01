@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonPopover } from '@ionic/angular';
 import { Trip } from 'src/app/models/trip';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,7 +17,8 @@ export class TripsPage implements OnInit {
 
   constructor(
     private tripsService: TripsService,
-    private authService: AuthService) { 
+    private authService: AuthService,
+    private router: Router) { 
   }
 
   ngOnInit() {
@@ -31,6 +33,11 @@ export class TripsPage implements OnInit {
   public logout() {
     this.popover.dismiss();
     this.authService.logout();
+  }
+
+  public createTrip() {
+    this.popover.dismiss();
+    this.router.navigate(['create-trip']);
   }
 
 }

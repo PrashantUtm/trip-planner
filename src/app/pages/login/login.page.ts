@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
   public login(): void {
     if (this.username !== '') {
       this.authService.authenticate(this.username).subscribe(result => {
-        sessionStorage.setItem('userId', result.userId);
+        sessionStorage.setItem('userId', result.user);
         sessionStorage.setItem('token', result.token);
         this.router.navigate(['/trips']);
       });

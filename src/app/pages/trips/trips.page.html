@@ -13,6 +13,7 @@
   <ion-popover #popover [isOpen]="isPopoverOpen" (didDismiss)="isPopoverOpen = false">
     <ng-template>
       <ion-content class="ion-padding">
+        <ion-button fill="clear" (click)="createTrip()">Create trip</ion-button>
         <ion-button fill="clear" (click)="logout()">Log out</ion-button>
       </ion-content>
     </ng-template>
@@ -43,4 +44,9 @@
       </ion-card>
     </ion-item>
   </ion-list>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="createTrip()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

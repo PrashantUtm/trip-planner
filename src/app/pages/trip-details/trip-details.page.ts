@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { ChecklistComponent } from 'src/app/components/checklist/checklist.component';
+import { ChecklistItem } from 'src/app/models/checklist-item';
 import { Trip } from 'src/app/models/trip';
 import { TripsService } from 'src/app/services/trips.service';
 import { UserService } from 'src/app/services/user.service';
@@ -22,7 +25,8 @@ export class TripDetailsPage implements OnInit {
   constructor(
     private route: ActivatedRoute, 
     private tripsService: TripsService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private modalController: ModalController) { }
 
   ngOnInit() {
     let tripId = this.route.snapshot.paramMap.get('id');
@@ -35,6 +39,23 @@ export class TripDetailsPage implements OnInit {
         })
       });
     }
+  }
+
+  public async viewChecklist() : Promise<void> {
+    const checklistUpdated = new EventEmitter<ChecklistItem[]>();
+    checklistUpdated.subscribe(checklistItems => {
+      this.trip.checklistItems = checklistItems;
+      this.tripsService.updateTrip(this.trip.id, this.trip).subscribe(trip => this.trip = trip);
+    });
+
+    const modal = await this.modalController.create({
+      component: ChecklistComponent,
+      componentProps: {
+        checklistUpdated: checklistUpdated,
+        checklistItems: this.trip.checklistItems
+      }
+    });
+    modal.present();
   }
 
 }

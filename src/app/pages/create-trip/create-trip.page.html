@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Create a new trip</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="tripForm">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Trip details</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-input formControlName="title" placeholder="Title"></ion-input>
+        <ion-input formControlName="budget" placeholder="Budget"></ion-input>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Destinations</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div formGroupName="startDestination">
+          <ion-card-subtitle>Start destination</ion-card-subtitle>
+          <ion-input formControlName="name" placeholder="Name"></ion-input>
+          <ion-input type="date" formControlName="date" placeholder="Date"></ion-input>
+        </div>
+        <hr class="solid">
+        <div formGroupName="finalDestination">
+          <ion-card-subtitle>Final destination</ion-card-subtitle>
+          <ion-input formControlName="name" placeholder="Name"></ion-input>
+          <ion-input type="date" formControlName="date" placeholder="Date"></ion-input>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>
+<div class="ion-text-center">
+  <ion-button expand="full" (click)="createNewTrip()">Save</ion-button>
+</div>

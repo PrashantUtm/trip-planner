@@ -19,8 +19,12 @@ export class AuthService {
     return sessionStorage.getItem('token');
   }
 
-  public authenticate(userId: string): Observable<{ userId: string, token: string}> {
-    return this.httpClient.post(`${environment.baseUrl}/login`, { userId }) as Observable<{ userId: string, token: string}>;
+  public getUserId(): string | null {
+    return sessionStorage.getItem('userId');
+  }
+
+  public authenticate(userId: string): Observable<{ user: string, token: string}> {
+    return this.httpClient.post(`${environment.baseUrl}/login`, { userId }) as Observable<{ user: string, token: string}>;
   }
 
   public logout(): void {
