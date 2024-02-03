@@ -30,5 +30,12 @@
   </app-destination>
   <app-destination [destination]="trip.finalDestination"></app-destination>
   <hr class="solid">
+  <h3><ion-icon name="images-outline"></ion-icon> Photos</h3>
+  <ion-thumbnail *ngFor="let picture of trip.pictures">
+    <img [src]="picture" />
+  </ion-thumbnail>
+  <ion-thumbnail (click)="addPhoto()">
+    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+  </ion-thumbnail>
 </ion-content>
 <ion-button expand="full" (click)="viewChecklist()">Checklist</ion-button>

@@ -16,7 +16,8 @@ export class ChecklistComponent  implements OnInit {
   constructor(private modalController: ModalController) { }
 
   ngOnInit() {
-    console.log(this.checklistItems);
+    if (!this.checklistItems)
+      this.checklistItems = [];
   }
 
   public save() : void {

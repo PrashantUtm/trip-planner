@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Camera, CameraResultType } from '@capacitor/camera';
 import { ModalController } from '@ionic/angular';
 import { ChecklistComponent } from 'src/app/components/checklist/checklist.component';
 import { ChecklistItem } from 'src/app/models/checklist-item';
@@ -45,7 +46,7 @@ export class TripDetailsPage implements OnInit {
     const checklistUpdated = new EventEmitter<ChecklistItem[]>();
     checklistUpdated.subscribe(checklistItems => {
       this.trip.checklistItems = checklistItems;
-      this.tripsService.updateTrip(this.trip.id, this.trip).subscribe(trip => this.trip = trip);
+      this.updateTrip();
     });
 
     const modal = await this.modalController.create({
@@ -56,6 +57,24 @@ export class TripDetailsPage implements OnInit {
       }
     });
     modal.present();
+  }
+
+  public async addPhoto() : Promise<void> {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Base64
+    });
+  
+    if (!this.trip.pictures)
+      this.trip.pictures = [];
+
+    this.trip.pictures.push(`data:image/png;base64,${image.base64String}`);
+    this.updateTrip();
+  }
+
+  private updateTrip() : void {
+    this.tripsService.updateTrip(this.trip.id, this.trip).subscribe(trip => this.trip = trip);
   }
 
 }

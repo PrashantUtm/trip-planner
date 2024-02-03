@@ -11,8 +11,26 @@
         <ion-card-title>Trip details</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <ion-input formControlName="title" placeholder="Title"></ion-input>
-        <ion-input formControlName="budget" placeholder="Budget"></ion-input>
+        <ion-input formControlName="title" placeholder="Title" errorText="Title is required"></ion-input>
+        <ion-input formControlName="budget" placeholder="Budget" errorText="Budget is required"></ion-input>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Travellers</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ng-container>
+          <ion-item formArrayName="travellers" *ngFor="let traveller of getTravellers(); let i=index">
+            <div [formGroupName]="i">
+              <ion-select formControlName="userId" placeholder="Name">
+                <ion-select-option *ngFor="let user of users" [value]="user.userId">{{ user.name }}</ion-select-option>
+              </ion-select>
+              <ion-input formControlName="role"></ion-input>
+            </div>
+          </ion-item>
+        </ng-container>
+        <ion-button color="secondary" (click)="addNewTraveller()"><ion-icon name="add-circle-outline"></ion-icon> Add traveller</ion-button>
       </ion-card-content>
     </ion-card>
     <ion-card>
@@ -22,14 +40,27 @@
       <ion-card-content>
         <div formGroupName="startDestination">
           <ion-card-subtitle>Start destination</ion-card-subtitle>
-          <ion-input formControlName="name" placeholder="Name"></ion-input>
-          <ion-input type="date" formControlName="date" placeholder="Date"></ion-input>
+          <ion-input formControlName="name" placeholder="Name" errorText="Name is required"></ion-input>
+          <ion-input type="date" formControlName="date" placeholder="Date" errorText="Date is required"></ion-input>
         </div>
         <hr class="solid">
         <div formGroupName="finalDestination">
           <ion-card-subtitle>Final destination</ion-card-subtitle>
-          <ion-input formControlName="name" placeholder="Name"></ion-input>
-          <ion-input type="date" formControlName="date" placeholder="Date"></ion-input>
+          <ion-input formControlName="name" placeholder="Name" errorText="Name is required"></ion-input>
+          <ion-input type="date" formControlName="date" placeholder="Date" errorText="Date is required"></ion-input>
+        </div>
+        <hr class="solid">
+        <div>
+          <ion-card-subtitle>Other destinations</ion-card-subtitle>
+          <ng-container formArrayName="otherDestinations">
+            <div *ngFor="let destination of getDestinations();let i=index">
+              <div [formGroupName]="i">
+                <ion-input formControlName="name" placeholder="Name" errorText="Name is required"></ion-input>
+                <ion-input type="date" formControlName="date" placeholder="Date" errorText="Date is required"></ion-input>
+              </div>
+            </div>
+          </ng-container>
+          <ion-button color="secondary" (click)="addDestination()"><ion-icon name="add-circle-outline"></ion-icon> Add destination</ion-button>
         </div>
       </ion-card-content>
     </ion-card>
