@@ -2,9 +2,11 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { ModalController } from '@ionic/angular';
+import { combineLatest } from 'rxjs';
 import { ChecklistComponent } from 'src/app/components/checklist/checklist.component';
 import { ChecklistItem } from 'src/app/models/checklist-item';
 import { Trip } from 'src/app/models/trip';
+import { User } from 'src/app/models/user';
 import { TripsService } from 'src/app/services/trips.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -23,6 +25,8 @@ export class TripDetailsPage implements OnInit {
     travellers: []
   }
 
+  private users: User[] = [];
+
   constructor(
     private route: ActivatedRoute, 
     private tripsService: TripsService,
@@ -32,14 +36,19 @@ export class TripDetailsPage implements OnInit {
   ngOnInit() {
     let tripId = this.route.snapshot.paramMap.get('id');
     if (tripId) {
-      this.tripsService.getTrip(tripId).subscribe(trip => this.trip = trip ?? this.trip);
-      this.userService.getUsers().subscribe(users => {
-        this.trip.travellers = this.trip.travellers.map(traveller => {
-          const user = users.find(u => u.userId === traveller.userId);
-          return {userId: traveller.userId, name: user?.name, role: traveller.role};
-        })
-      });
+      combineLatest([this.tripsService.getTrip(tripId), this.userService.getUsers()]).subscribe(([trip, users]) => {
+        this.trip = trip ?? this.trip;
+        this.users = users;
+        this.mapTravellerNames();
+      })
     }
+  }
+
+  private mapTravellerNames() {
+    this.trip.travellers = this.trip.travellers.map(traveller => {
+      const user = this.users.find(u => u.userId === traveller.userId);
+      return { userId: traveller.userId, name: user?.name, role: traveller.role };
+    });
   }
 
   public async viewChecklist() : Promise<void> {
@@ -66,15 +75,18 @@ export class TripDetailsPage implements OnInit {
       resultType: CameraResultType.Base64
     });
   
-    if (!this.trip.pictures)
-      this.trip.pictures = [];
+    if (!this.trip.photos)
+      this.trip.photos = [];
 
-    this.trip.pictures.push(`data:image/png;base64,${image.base64String}`);
+    this.trip.photos.push(`data:image/png;base64,${image.base64String}`);
     this.updateTrip();
   }
 
   private updateTrip() : void {
-    this.tripsService.updateTrip(this.trip.id, this.trip).subscribe(trip => this.trip = trip);
+    this.tripsService.updateTrip(this.trip.id, this.trip).subscribe(trip => {
+      this.trip = trip;
+      this.mapTravellerNames();
+    });
   }
 
 }

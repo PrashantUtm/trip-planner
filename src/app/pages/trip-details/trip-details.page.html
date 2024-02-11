@@ -31,7 +31,7 @@
   <app-destination [destination]="trip.finalDestination"></app-destination>
   <hr class="solid">
   <h3><ion-icon name="images-outline"></ion-icon> Photos</h3>
-  <ion-thumbnail *ngFor="let picture of trip.pictures">
+  <ion-thumbnail *ngFor="let picture of trip.photos">
     <img [src]="picture" />
   </ion-thumbnail>
   <ion-thumbnail (click)="addPhoto()">

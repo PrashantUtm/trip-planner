@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { IonPopover } from '@ionic/angular';
+import { filter } from 'rxjs';
 import { Trip } from 'src/app/models/trip';
 import { AuthService } from 'src/app/services/auth.service';
 import { TripsService } from 'src/app/services/trips.service';
@@ -22,7 +23,9 @@ export class TripsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.tripsService.getTrips().subscribe(trips => this.trips = trips);
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
+      this.tripsService.getTrips().subscribe(trips => this.trips = trips);
+    });
   }
 
   presentPopover(e: Event) {

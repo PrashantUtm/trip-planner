@@ -12,6 +12,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   public getUsers(): Observable<User[]> {
-    return this.http.get(`${environment.baseUrl}/mocks/users`) as Observable<User[]>;
+    return this.http.get(`${environment.baseUrl}/users`) as Observable<User[]>;
   }
 }

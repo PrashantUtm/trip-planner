@@ -40,13 +40,32 @@
       <ion-card-content>
         <div formGroupName="startDestination">
           <ion-card-subtitle>Start destination</ion-card-subtitle>
-          <ion-input formControlName="name" placeholder="Name" errorText="Name is required"></ion-input>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="10"><ion-input formControlName="name" placeholder="Name" errorText="Name is required"></ion-input></ion-col>
+              <ion-col size="2">
+                <ion-button fill="clear" color="medium"  (click)="setCurrentLocation('startDestination')">
+                  <ion-icon slot="icon-only" name="locate-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
           <ion-input type="date" formControlName="date" placeholder="Date" errorText="Date is required"></ion-input>
         </div>
         <hr class="solid">
         <div formGroupName="finalDestination">
           <ion-card-subtitle>Final destination</ion-card-subtitle>
-          <ion-input formControlName="name" placeholder="Name" errorText="Name is required"></ion-input>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="10"><ion-input formControlName="name" placeholder="Name" errorText="Name is required"></ion-input></ion-col>
+              <ion-col size="2">
+                <ion-button fill="clear" color="medium" (click)="setCurrentLocation('finalDestination')">
+                  <ion-icon slot="icon-only" name="locate-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
           <ion-input type="date" formControlName="date" placeholder="Date" errorText="Date is required"></ion-input>
         </div>
         <hr class="solid">

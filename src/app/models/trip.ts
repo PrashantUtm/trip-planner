@@ -11,5 +11,5 @@ export interface Trip {
     otherDestinations?: Destination[];
     checklistItems?: ChecklistItem[];
     travellers: Traveller[];
-    pictures?: string[];
+    photos?: string[];
 }

@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { UnauthorizedInterceptor } from './interceptors/unauthorized.interceptor';
+import { NativeGeocoder } from '@awesome-cordova-plugins/native-geocoder/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { UnauthorizedInterceptor } from './interceptors/unauthorized.interceptor
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: UnauthorizedInterceptor, multi: true },
+    NativeGeocoder
   ],
   bootstrap: [AppComponent],
 })
